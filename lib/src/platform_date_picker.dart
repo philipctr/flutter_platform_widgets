@@ -130,6 +130,7 @@ Future<DateTime?> showPlatformDatePicker({
   PlatformBuilder<MaterialDatePickerData>? material,
   PlatformBuilder<CupertinoDatePickerData>? cupertino,
   DatePickerContentBuilder? cupertinoContentBuilder,
+  required mode,
 }) async {
   if (isMaterial(context)) {
     final data = material?.call(context, platform(context));
@@ -178,6 +179,7 @@ Future<DateTime?> showPlatformDatePicker({
             initialDate: initialDate,
             firstDate: firstDate,
             lastDate: lastDate,
+            mode: mode,
           ),
     );
   }
@@ -188,6 +190,7 @@ Widget _renderManagedCupertinoDatePicker({
   required DateTime initialDate,
   required DateTime firstDate,
   required DateTime lastDate,
+  required CupertinoDatePickerMode mode,
 }) {
   DateTime selectedDate = data?.initialDate ?? initialDate;
 
@@ -199,7 +202,7 @@ Widget _renderManagedCupertinoDatePicker({
         lastDate: data?.lastDate ?? lastDate,
         selectedDate: selectedDate,
       );
-      return DefaultCupertinoDatePicker(
+      return DefaultCupertinoDatePicker( mode: mode,
         contentData: contentData,
         data: data,
         onDateTimeChanged: (newDate) => setState(() => selectedDate = newDate),

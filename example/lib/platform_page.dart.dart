@@ -321,7 +321,7 @@ class PlatformPage extends StatelessWidget {
           ),
           // ! Date Picker
           PlatformWidgetExample(
-            title: 'showPlatformDatePicker',
+            title: 'showPlatformDatePickerMonth',
             builder: (_, platform) => PlatformElevatedButton(
               child: Text(platform.text),
               onPressed: () => _showDatePicker(context),
@@ -426,7 +426,7 @@ ThemeMode _cycleThemeMode(ThemeMode? mode) {
 
 _showDatePicker(BuildContext context) async {
   final now = DateUtils.dateOnly(DateTime.now());
-  final date = await showPlatformDatePicker(
+  final date = await showPlatformDatePicker( mode: CupertinoDatePickerMode.monthYear,
     context: context,
     firstDate: now.subtract(const Duration(days: 100)),
     lastDate: now.add(const Duration(days: 100)),
