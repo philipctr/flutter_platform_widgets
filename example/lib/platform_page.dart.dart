@@ -426,7 +426,9 @@ ThemeMode _cycleThemeMode(ThemeMode? mode) {
 
 _showDatePicker(BuildContext context) async {
   final now = DateUtils.dateOnly(DateTime.now());
-  final date = await showPlatformDatePicker( mode: CupertinoDatePickerMode.monthYear,
+  final date = await showPlatformDatePicker(
+    mode: CupertinoDatePickerMode.monthYear,
+    pickerType: 1,
     context: context,
     firstDate: now.subtract(const Duration(days: 100)),
     lastDate: now.add(const Duration(days: 100)),

@@ -12,6 +12,7 @@ import 'package:flutter/widgets.dart';
 import 'platform.dart';
 import 'platform_text_button.dart';
 import 'widget_base.dart';
+import 'package:month_picker_dialog/month_picker_dialog.dart';
 
 class DatePickerContentData {
   final DateTime? initialDate;
@@ -131,33 +132,16 @@ Future<DateTime?> showPlatformDatePicker({
   PlatformBuilder<CupertinoDatePickerData>? cupertino,
   DatePickerContentBuilder? cupertinoContentBuilder,
   required mode,
+  required pickerType,
 }) async {
   if (isMaterial(context)) {
     final data = material?.call(context, platform(context));
-    return await showDatePicker(
+    return await dateTimePicker(
+      pickerType: pickerType,
       context: context,
       initialDate: data?.initialDate ?? initialDate,
       firstDate: data?.firstDate ?? firstDate,
       lastDate: data?.lastDate ?? lastDate,
-      builder: data?.builder,
-      confirmText: data?.confirmText,
-      currentDate: data?.currentDate,
-      errorFormatText: data?.errorFormatText,
-      errorInvalidText: data?.errorInvalidText,
-      fieldHintText: data?.fieldHintText,
-      fieldLabelText: data?.fieldLabelText,
-      helpText: data?.helpText,
-      initialDatePickerMode: data?.initialDatePickerMode ?? DatePickerMode.day,
-      initialEntryMode: data?.initialEntryMode ?? DatePickerEntryMode.calendar,
-      locale: data?.locale,
-      routeSettings: data?.routeSettings,
-      selectableDayPredicate: data?.selectableDayPredicate,
-      textDirection: data?.textDirection,
-      useRootNavigator: data?.useRootNavigator ?? true,
-      cancelText: data?.cancelText,
-      anchorPoint: data?.anchorPoint,
-      keyboardType: data?.keyboardType,
-      onDatePickerModeChange: data?.onDatePickerModeChange,
     );
   } else {
     final data = cupertino?.call(context, platform(context));
@@ -185,6 +169,43 @@ Future<DateTime?> showPlatformDatePicker({
   }
 }
 
+Future<DateTime?> dateTimePicker(
+    {required BuildContext context,
+    required DateTime initialDate,
+    required DateTime firstDate,
+    required DateTime lastDate,
+    data,
+    required pickerType}) {
+  if (pickerType == 1) {
+    return showDatePicker(
+      context: context,
+      initialDate: data?.initialDate ?? initialDate,
+      firstDate: data?.firstDate ?? firstDate,
+      lastDate: data?.lastDate ?? lastDate,
+      builder: data?.builder,
+      confirmText: data?.confirmText,
+      currentDate: data?.currentDate,
+      errorFormatText: data?.errorFormatText,
+      errorInvalidText: data?.errorInvalidText,
+      fieldHintText: data?.fieldHintText,
+      fieldLabelText: data?.fieldLabelText,
+      helpText: data?.helpText,
+      initialDatePickerMode: data?.initialDatePickerMode ?? DatePickerMode.day,
+      initialEntryMode: data?.initialEntryMode ?? DatePickerEntryMode.calendar,
+      locale: data?.locale,
+      routeSettings: data?.routeSettings,
+      selectableDayPredicate: data?.selectableDayPredicate,
+      textDirection: data?.textDirection,
+      useRootNavigator: data?.useRootNavigator ?? true,
+      cancelText: data?.cancelText,
+      anchorPoint: data?.anchorPoint,
+      keyboardType: data?.keyboardType,
+      onDatePickerModeChange: data?.onDatePickerModeChange,
+    );
+  } else
+    return showMonthPicker(context: context);
+}
+
 Widget _renderManagedCupertinoDatePicker({
   CupertinoDatePickerData? data,
   required DateTime initialDate,
@@ -202,7 +223,8 @@ Widget _renderManagedCupertinoDatePicker({
         lastDate: data?.lastDate ?? lastDate,
         selectedDate: selectedDate,
       );
-      return DefaultCupertinoDatePicker( mode: mode,
+      return DefaultCupertinoDatePicker(
+        mode: mode,
         contentData: contentData,
         data: data,
         onDateTimeChanged: (newDate) => setState(() => selectedDate = newDate),
