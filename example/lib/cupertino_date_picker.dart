@@ -8,7 +8,7 @@ showDatePickerWithCustomCupertinoStateful(BuildContext context) async {
   final lastDate = now.add(const Duration(days: 100));
   final date = await showPlatformDatePicker(
     mode: CupertinoDatePickerMode.dateAndTime,
-    pickerType: 0,
+    pickerType: PickerType.dateMonth,
     context: context,
     firstDate: firstDate,
     lastDate: lastDate,
@@ -33,7 +33,7 @@ showDatePickerWithCustomCupertino(BuildContext context) async {
 
   final date = await showPlatformDatePicker(
     mode: CupertinoDatePickerMode.date,
-    pickerType: 0,
+    pickerType: PickerType.monthYear,
     context: context,
     firstDate: firstDate,
     lastDate: lastDate,

@@ -14,6 +14,8 @@ import 'platform_text_button.dart';
 import 'widget_base.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 
+enum PickerType { monthYear, dateMonth }
+
 class DatePickerContentData {
   final DateTime? initialDate;
   final DateTime? firstDate;
@@ -176,7 +178,7 @@ Future<DateTime?> dateTimePicker(
     required DateTime lastDate,
     data,
     required pickerType}) {
-  if (pickerType == 1) {
+  if (pickerType == PickerType.dateMonth) {
     return showDatePicker(
       context: context,
       initialDate: data?.initialDate ?? initialDate,
