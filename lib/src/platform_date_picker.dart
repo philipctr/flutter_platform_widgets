@@ -152,6 +152,8 @@ Future<DateTime?> showPlatformDatePicker({
   DatePickerContentBuilder? cupertinoContentBuilder,
   required mode,
   required pickerType,
+  required maximumYear,
+  required minimumYear,
 }) async {
   if (isMaterial(context)) {
     final data = material?.call(context, platform(context));
@@ -183,18 +185,21 @@ Future<DateTime?> showPlatformDatePicker({
             firstDate: firstDate,
             lastDate: lastDate,
             mode: mode,
+            maximumYear: maximumYear,
+            minimumYear: minimumYear,
           ),
     );
   }
 }
 
-Future<DateTime?> dateTimePicker(
-    {required BuildContext context,
-    required DateTime initialDate,
-    required DateTime firstDate,
-    required DateTime lastDate,
-    data,
-    required pickerType}) {
+Future<DateTime?> dateTimePicker({
+  required BuildContext context,
+  required DateTime initialDate,
+  required DateTime firstDate,
+  required DateTime lastDate,
+  data,
+  required pickerType,
+}) {
   if (pickerType == PickerType.dateMonth) {
     return showDatePicker(
       context: context,
@@ -236,6 +241,8 @@ Widget _renderManagedCupertinoDatePicker({
   required DateTime firstDate,
   required DateTime lastDate,
   required CupertinoDatePickerMode mode,
+  required maximumYear,
+  required minimumYear,
 }) {
   DateTime selectedDate = data?.initialDate ?? initialDate;
 
@@ -252,6 +259,8 @@ Widget _renderManagedCupertinoDatePicker({
         contentData: contentData,
         data: data,
         onDateTimeChanged: (newDate) => setState(() => selectedDate = newDate),
+        maximumYear: maximumYear,
+        minimumYear: minimumYear,
       );
     },
   );
@@ -266,6 +275,8 @@ class DefaultCupertinoDatePicker extends StatelessWidget {
   final CupertinoDatePickerData? data;
   final String? doneLabel;
   final String? cancelLabel;
+  final int maximumYear;
+  final int minimumYear;
 
   const DefaultCupertinoDatePicker({
     required this.contentData,
@@ -277,6 +288,8 @@ class DefaultCupertinoDatePicker extends StatelessWidget {
     this.doneLabel,
     this.cancelLabel,
     super.key,
+    required this.maximumYear,
+    required this.minimumYear,
   });
 
   @override
@@ -298,8 +311,8 @@ class DefaultCupertinoDatePicker extends StatelessWidget {
             maximumDate: contentData.lastDate,
             backgroundColor: data?.backgroundColor,
             dateOrder: data?.dateOrder,
-            maximumYear: data?.maximumYear,
-            minimumYear: data?.minimumYear ?? 1,
+            maximumYear: maximumYear,
+            minimumYear: minimumYear ?? 1,
             minuteInterval: data?.minuteInterval ?? 1,
             use24hFormat: data?.use24hFormat ?? false,
             showDayOfWeek: data?.showDayOfWeek ?? false,

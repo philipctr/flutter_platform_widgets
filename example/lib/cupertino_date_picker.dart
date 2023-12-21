@@ -7,6 +7,8 @@ showDatePickerWithCustomCupertinoStateful(BuildContext context) async {
   final firstDate = now.subtract(const Duration(days: 100));
   final lastDate = now.add(const Duration(days: 100));
   final date = await showPlatformDatePicker(
+    maximumYear: 2023,
+    minimumYear: 2022,
     mode: CupertinoDatePickerMode.dateAndTime,
     pickerType: PickerType.dateMonth,
     context: context,
@@ -32,6 +34,8 @@ showDatePickerWithCustomCupertino(BuildContext context) async {
   var selectedDate = now;
 
   final date = await showPlatformDatePicker(
+    maximumYear: 2023,
+    minimumYear: 2022,
     mode: CupertinoDatePickerMode.date,
     pickerType: PickerType.monthYear,
     context: context,

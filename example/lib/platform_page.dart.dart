@@ -431,8 +431,10 @@ _showDatePicker(BuildContext context) async {
     pickerType: PickerType.monthYear,
     context: context,
     firstDate: now.subtract(const Duration(days: 100)),
-    lastDate: now.add(const Duration(days: 100)),
+    lastDate: now,
     initialDate: now,
+    minimumYear: 2010,
+    maximumYear: 2023,
   );
 
   if (date != null) {
