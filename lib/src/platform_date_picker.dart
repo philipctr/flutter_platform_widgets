@@ -258,6 +258,7 @@ Widget _renderManagedCupertinoDatePicker({
         mode: mode,
         contentData: contentData,
         data: data,
+        modalColor: data?.backgroundColor,
         onDateTimeChanged: (newDate) => setState(() => selectedDate = newDate),
         maximumYear: maximumYear,
         minimumYear: minimumYear,
