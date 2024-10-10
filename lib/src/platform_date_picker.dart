@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart'
     show CupertinoDatePicker, CupertinoDatePickerMode, DatePickerDateOrder;
 import 'package:flutter/material.dart'
@@ -157,6 +159,9 @@ Future<DateTime?> showPlatformDatePicker({
 }) async {
   if (isMaterial(context)) {
     final data = material?.call(context, platform(context));
+    log('in $material');
+    log('ini ${data?.initialDate}');
+    log('init ${initialDate}');
     return await dateTimePicker(
       pickerType: pickerType,
       context: context,
@@ -166,7 +171,8 @@ Future<DateTime?> showPlatformDatePicker({
     );
   } else {
     final data = cupertino?.call(context, platform(context));
-
+    log('ini ${data?.initialDate}');
+    log('init ${initialDate}');
     final contentData = DatePickerContentData(
       initialDate: data?.initialDate ?? initialDate,
       firstDate: data?.firstDate ?? firstDate,
@@ -232,7 +238,15 @@ Future<DateTime?> dateTimePicker({
       barrierLabel: data?.barrierLabel,
     );
   } else
-    return showMonthPicker(context: context);
+    return showMonthPicker(
+      context: context,
+      initialDate: data?.initialDate ?? initialDate,
+    ).then((DateTime? date) {
+      if (date != null) {
+        data?.initialDate = date;
+      }
+      return null;
+    });
 }
 
 Widget _renderManagedCupertinoDatePicker({
