@@ -162,6 +162,13 @@ Future<DateTime?> showPlatformDatePicker({
     log('in $material');
     log('ini ${data?.initialDate}');
     log('init ${initialDate}');
+    log('check ${(await dateTimePicker(
+      pickerType: pickerType,
+      context: context,
+      initialDate: data?.initialDate ?? initialDate,
+      firstDate: data?.firstDate ?? firstDate,
+      lastDate: data?.lastDate ?? lastDate,
+    ))}');
     return await dateTimePicker(
       pickerType: pickerType,
       context: context,
@@ -244,6 +251,7 @@ Future<DateTime?> dateTimePicker({
     ).then((DateTime? date) {
       if (date != null) {
         data?.initialDate = date;
+        return date;
       }
       return null;
     });
