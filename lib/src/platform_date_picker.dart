@@ -236,8 +236,10 @@ Future<DateTime?> dateTimePicker({
     );
   } else
     return showMonthPicker(
+      firstDate: data?.initialDate ?? initialDate,
       context: context,
       initialDate: data?.initialDate ?? initialDate,
+      lastDate: data?.lastDate ?? lastDate,
     ).then((DateTime? date) {
       if (date != null) {
         initialDate = date;
